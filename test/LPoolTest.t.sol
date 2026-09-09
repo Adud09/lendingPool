@@ -594,7 +594,6 @@ contract LPoolTest is Test {
     function testliquidateSuccessfulTransaction() external depositLiquiditys depositCollaterals newBorrow {
         uint256 amountToLiquidate = 5000e18;
         uint256 amountToShare = LPool.getDebtWorthToShare(LPool.getUserDebtShare(bob), amountToLiquidate, bob);
-        uint256 userDebtShareBefore = LPool.getUserDebtShare(bob);
         uint256 userCollateralBefore = LPool.getUserCollateralDeposit(bob);
         uint256 liquidatorBalanceBefore = IERC20(collateralToken).balanceOf(alice);
         uint256 totalCollateralBefore = LPool.getTotalCollateralPool();
@@ -604,7 +603,6 @@ contract LPoolTest is Test {
         LPool.liquidate(amountToLiquidate, bob);
         vm.stopPrank();
 
-        uint256 userDebtShareAfter = LPool.getUserDebtShare(bob);
         uint256 userCollateralAfter = LPool.getUserCollateralDeposit(bob);
         uint256 liquidatorBalanceAfter = IERC20(collateralToken).balanceOf(alice);
         uint256 totalCollateralAfter = LPool.getTotalCollateralPool();
